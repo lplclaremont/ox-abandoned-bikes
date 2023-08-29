@@ -9,24 +9,6 @@ app = Flask(__name__)
 
 connector = DatabaseConnection()
 connector.connect('abandoned_bikes')
-
-def location_to_dict(location):
-    return {
-        "id": location.id,
-        "name": location.name,
-        "latitude": location.latitude,
-        "longitude": location.longitude
-    }
-
-def bike_to_dict(bike):
-    return {
-        "id": bike.id,
-        "brand": bike.brand,
-        "colour": bike.colour,
-        "condition": bike.condition,
-        "date_found": bike.date_found,
-        "location_id": bike.location_id
-    }
     
 @app.get("/")
 def home():
@@ -35,16 +17,16 @@ def home():
 @app.get("/locations")
 def get_locations():
     repository = LocationRepository(connector)
-    locations = list(map(location_to_dict, repository.all()))
+    locations = [location.__dict__ for location in repository.all()]
     
     return jsonify(locations), 200
 
 @app.get("/locations/<int:location_id>")
 def get_location_by_id(location_id):
     repository = LocationRepository(connector)
-    location = location_to_dict(repository.find(location_id))
+    location_dict = repository.find(location_id).__dict__
 
-    return jsonify(location), 200
+    return jsonify(location_dict), 200
 
 @app.post("/locations")
 def create_location():
@@ -69,16 +51,16 @@ def delete_location(location_id):
 @app.get("/bikes")
 def get_bikes():
     repository = BikeRepository(connector)
-    bikes = list(map(bike_to_dict, repository.all()))
+    bikes = [bike.__dict__ for bike in repository.all()]
     
     return jsonify(bikes), 200
 
 @app.get("/bikes/<int:bike_id>")
 def get_bike_by_id(bike_id):
     repository = BikeRepository(connector)
-    location = bike_to_dict(repository.find(bike_id))
+    bike_dict = repository.find(bike_id).__dict__
 
-    return jsonify(location), 200
+    return jsonify(bike_dict), 200
 
 @app.post("/bikes")
 def create_bike():
