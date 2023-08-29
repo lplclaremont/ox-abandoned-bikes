@@ -11,7 +11,8 @@ class LocationRepository:
         rows = self._connection.execute('SELECT * FROM locations')
         locations = []
         for row in rows:
-            item = Location(row["id"], row["name"], row["latitude"], row["longitude"])
+            item = Location(row["id"], row["name"], float(row["latitude"]), float(row["longitude"]))
+            print(item)
             locations.append(item)
 
         return locations
@@ -21,7 +22,7 @@ class LocationRepository:
         rows = self._connection.execute('SELECT * FROM locations WHERE id = %s', [location_id])
         row = rows[0]
 
-        return Location(row["id"], row["name"], row["latitude"], row["longitude"])
+        return Location(row["id"], row["name"], float(row["latitude"]), float(row["longitude"]))
     
     # Adds new location to the database
     def create(self, location):

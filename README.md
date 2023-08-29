@@ -3,13 +3,14 @@
 
 ### Overview
 This is a program which I have designed to help me keep track of any abandoned bicycles left around oxford. I have used Python for the backend to practise using Flask for Python and database connections with PostgreSQL.
-The database consists of two tables, one for locations (bike racks or fence posts) and one for bikes. Each bike is associated with one and only one location.
+The database consists of two tables, one for locations (bike racks / fence posts) and one for bikes. Each bike is associated with one and only one location.
 
 ### Technology used
 - Python
 - Flask
 - PostgreSQL
 - Pytest
+- Psycopg
 
 ### Running the program
 Clone this repo and start the server by doing the following:
@@ -28,8 +29,8 @@ flask run
 ```
 
 Now you can visit the API endpoints by making requests the the following:
-http://127.0.0.1:5000/ ---> home
-http://127.0.0.1:5000/locations ---> a list of all locations
+- http://127.0.0.1:5000/ ---> home
+- http://127.0.0.1:5000/locations ---> a list of all locations
 
 
 ### Testing the program

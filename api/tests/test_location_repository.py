@@ -13,12 +13,11 @@ def test_get_all_records(db_connection): # See conftest.py to learn what `db_con
 
     locations = repository.all() # Get all locations
 
-    # Assert on the results
-    assert len(locations) == 2
 
+    assert len(locations) == 2
     assert locations == [
-        Location(1, "Rad Cam", Decimal('51.750000'), Decimal('-1.250000')),
-        Location(2, "Westgate", Decimal('51.750000'), Decimal('-1.260000'))
+        Location(1, "Rad Cam", 51.750000, -1.250000),
+        Location(2, "Westgate", 51.750000, -1.260000)
     ]
 
 """
@@ -30,7 +29,7 @@ def test_get_single_record(db_connection):
     repository = LocationRepository(db_connection)
 
     location = repository.find(2)
-    assert location == Location(2, "Westgate", Decimal('51.750000'), Decimal('-1.260000'))
+    assert location == Location(2, "Westgate", 51.75, -1.26)
 
 """
 When we call LocationRepository#create
@@ -44,9 +43,9 @@ def test_create_record(db_connection):
 
     result = repository.all()
     assert result == [
-        Location(1, "Rad Cam", Decimal('51.750000'), Decimal('-1.250000')),
-        Location(2, "Westgate", Decimal('51.750000'), Decimal('-1.260000')),
-        Location(3, "Cornmarket", Decimal('1.111111'), Decimal('2.222222'))
+        Location(1, "Rad Cam", 51.750000, -1.250000),
+        Location(2, "Westgate", 51.750000, -1.260000),
+        Location(3, "Cornmarket", 1.111111, 2.222222)
     ]
 
 """
@@ -60,5 +59,5 @@ def test_delete_record(db_connection):
 
     result = repository.all()
     assert result == [
-        Location(2, "Westgate", Decimal('51.750000'), Decimal('-1.260000')),
+        Location(2, "Westgate", 51.750000, -1.260000),
     ]
