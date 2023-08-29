@@ -14,10 +14,11 @@ def test_get_all_records(db_connection): # See conftest.py to learn what `db_con
     locations = repository.all() # Get all locations
 
 
-    assert len(locations) == 2
+    assert len(locations) == 3
     assert locations == [
         Location(1, "Rad Cam", 51.750000, -1.250000),
-        Location(2, "Westgate", 51.750000, -1.260000)
+        Location(2, "Westgate", 51.750000, -1.260000),
+        Location(3,"Mag Bridge", 50, -1.5)
     ]
 
 """
@@ -45,7 +46,8 @@ def test_create_record(db_connection):
     assert result == [
         Location(1, "Rad Cam", 51.750000, -1.250000),
         Location(2, "Westgate", 51.750000, -1.260000),
-        Location(3, "Cornmarket", 1.111111, 2.222222)
+        Location(3,"Mag Bridge", 50, -1.5),
+        Location(4, "Cornmarket", 1.111111, 2.222222)
     ]
 
 """
@@ -55,9 +57,10 @@ We remove a record from the database.
 def test_delete_record(db_connection):
     db_connection.seed("seeds/abandoned_bikes.sql")
     repository = LocationRepository(db_connection)
-    repository.delete(1)
+    repository.delete(3)
 
     result = repository.all()
     assert result == [
+        Location(1, "Rad Cam", 51.750000, -1.250000),
         Location(2, "Westgate", 51.750000, -1.260000),
     ]

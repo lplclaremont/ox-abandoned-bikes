@@ -4,10 +4,10 @@
 -- database state, and that tests don't interfere with each other.
 
 -- First, we must delete (drop) all our tables
-DROP TABLE IF EXISTS locations;
-DROP SEQUENCE IF EXISTS locations_id_seq;
 DROP TABLE IF EXISTS bikes;
 DROP SEQUENCE IF EXISTS bikes_id_seq;
+DROP TABLE IF EXISTS locations;
+DROP SEQUENCE IF EXISTS locations_id_seq;
 
 -- Then, we recreate them
 CREATE SEQUENCE IF NOT EXISTS locations_id_seq;
@@ -31,6 +31,7 @@ CREATE TABLE bikes (
 -- Finally, we add any records that are needed for the tests to run
 INSERT INTO locations (name, latitude, longitude) VALUES ('Rad Cam', 51.75, -1.25);
 INSERT INTO locations (name, latitude, longitude) VALUES ('Westgate', 51.75, -1.26);
+INSERT INTO locations (name, latitude, longitude) VALUES ('Mag Bridge', 50, -1.5);
 
 INSERT INTO bikes (brand, colour, condition, date_found, location_id)
     VALUES ('Raleigh', 'green', 'poor', '2022-12-22', 1);
