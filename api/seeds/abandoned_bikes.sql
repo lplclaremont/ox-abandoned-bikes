@@ -25,7 +25,7 @@ CREATE TABLE bikes (
     colour VARCHAR(255),
     condition VARCHAR(255) CHECK (condition IN ('poor', 'fair', 'good', 'excellent')),
     date_found DATE,
-    location_id INTEGER
+    location_id INTEGER REFERENCES locations(id)
 );
 
 -- Finally, we add any records that are needed for the tests to run
