@@ -33,4 +33,8 @@ INSERT INTO locations (name, latitude, longitude) VALUES ('Rad Cam', 51.75, -1.2
 INSERT INTO locations (name, latitude, longitude) VALUES ('Westgate', 51.75, -1.26);
 
 INSERT INTO bikes (brand, colour, condition, date_found, location_id)
-    VALUES ('raleigh', 'green', 'poor', '2022-12-22', 1)
+    VALUES ('Raleigh', 'green', 'poor', '2022-12-22', 1);
+INSERT INTO bikes (brand, colour, condition, date_found, location_id)
+    VALUES ('Nigel Dean', 'red', 'good', '2022-12-23', 2);
+INSERT INTO bikes (brand, colour, condition, date_found, location_id)
+    VALUES ('Dawes', 'brown', 'fair', '2022-12-24', 2);

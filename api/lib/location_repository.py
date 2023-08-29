@@ -1,4 +1,4 @@
-from lib.location import Location
+from .location import Location
 
 class LocationRepository:
 
