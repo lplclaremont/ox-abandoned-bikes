@@ -51,7 +51,7 @@ def test_create_record(db_connection):
 
 """
 When we call LocationRepository#delete
-We remove a record from thhe database.
+We remove a record from the database.
 """
 def test_delete_record(db_connection):
     db_connection.seed("seeds/abandoned_bikes.sql")
