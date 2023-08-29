@@ -1,6 +1,4 @@
-class Location:
-    # We initialise with all of our attributes
-    # Each column in the table should have an attribute here
+class Location:    
     def __init__(self, id, name, latitude, longitude):
         self.id = id
         self.name = name
