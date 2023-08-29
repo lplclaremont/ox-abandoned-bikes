@@ -30,7 +30,15 @@ flask run
 
 Now you can visit the API endpoints by making requests the the following:
 - http://127.0.0.1:5000/ ---> home
-- http://127.0.0.1:5000/locations ---> a list of all locations
+- GET http://127.0.0.1:5000/locations ---> a list of all locations
+- GET http://127.0.0.1:5000/locations/id ---> a single location by it's ID
+- POST http://127.0.0.1:5000/locations ---> add new location to database by passing JSON in the body
+- DELETE http://127.0.0.1:5000/locations/id ---> remove a location by it's ID
+
+- GET http://127.0.0.1:5000/bikes ---> a list of all bikes
+- GET http://127.0.0.1:5000/bikes/id ---> a single bike by it's ID
+- POST http://127.0.0.1:5000/bikes ---> add new bike to database by passing JSON in the body
+- DELETE http://127.0.0.1:5000/bikes/id ---> remove a bike by it's ID
 
 
 ### Testing the program
