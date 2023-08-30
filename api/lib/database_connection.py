@@ -1,6 +1,7 @@
+import os
+from flask import g
 import psycopg
 from psycopg.rows import dict_row
-import os
 
 # This class helps us interact with the database.
 # It wraps the underlying psycopg library that we are using.
@@ -8,10 +9,13 @@ import os
 # If the below seems too complex right now, that's OK.
 # That's why we have provided it!
 class DatabaseConnection:
-    # DATABASE_NAME = "DEFAULT_MAKERS_PROJECT" # <-- CHANGE THIS!
+
+    def __init__(self, test_mode=False):
+        self.test_mode = test_mode
 
     # This method connects to PostgreSQL using the psycopg library. We connect
     # to localhost and select the database name given in argument.
+
     def connect(self, database_name):
         try:
             self.connection = psycopg.connect(
@@ -33,7 +37,7 @@ class DatabaseConnection:
 
     # This method executes an SQL query on the database.
     # It allows you to set some parameters too. You'll learn about this later.
-    def execute(self, query, params=None):
+    def execute(self, query, params=[]):
         self._check_connection()
         with self.connection.cursor() as cursor:
             cursor.execute(query, params)
@@ -54,3 +58,14 @@ class DatabaseConnection:
     def _check_connection(self):
         if self.connection is None:
             raise Exception(self.CONNECTION_MESSAGE)
+
+# This function integrates with Flask to create one database connection that
+# Flask request can use. To see how to use it, look at example_routes.py
+def get_flask_database_connection(app):
+    if not hasattr(g, 'flask_database_connection'):
+        g.flask_database_connection = DatabaseConnection(test_mode=app.config['TESTING'])
+        if g.flask_database_connection.test_mode:
+            g.flask_database_connection.connect('abandoned_bikes_test')
+        else:
+            g.flask_database_connection.connect('abandoned_bikes')
+    return g.flask_database_connection

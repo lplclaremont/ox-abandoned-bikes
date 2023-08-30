@@ -1,5 +1,6 @@
 import pytest
 from lib.database_connection import DatabaseConnection
+from app import app
 
 # This is a Pytest fixture.
 # It creates an object that we can use in our tests.
@@ -9,6 +10,13 @@ def db_connection():
     conn = DatabaseConnection()
     conn.connect('abandoned_bikes_test')
     return conn
+
+# We'll also create a fixture for the client we'll use to make test requests.
+@pytest.fixture
+def web_client():
+    app.config['TESTING'] = True # This gets us better errors
+    with app.test_client() as client:
+        yield client
 
 # Now, when we create a test, if we allow it to accept a parameter called `db_connection`,
 # Pytest will automatically pass in the object we created above.

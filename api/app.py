@@ -1,14 +1,16 @@
+
+import os
 from flask import Flask, jsonify, request
 from lib.location import Location
 from lib.location_repository import LocationRepository
 from lib.bike import Bike
 from lib.bike_repository import BikeRepository
-from lib.database_connection import DatabaseConnection
+from lib.database_connection import get_flask_database_connection
 
 app = Flask(__name__)
 
-connector = DatabaseConnection()
-connector.connect('abandoned_bikes')
+# connector = DatabaseConnection()
+# connector.connect('abandoned_bikes')
     
 @app.get("/")
 def home():
@@ -16,14 +18,16 @@ def home():
 
 @app.get("/locations")
 def get_locations():
-    repository = LocationRepository(connector)
+    connection = get_flask_database_connection(app)
+    repository = LocationRepository(connection)
     locations = [location.__dict__ for location in repository.all()]
     
     return jsonify(locations), 200
 
 @app.get("/locations/<int:location_id>")
 def get_location_by_id(location_id):
-    repository = LocationRepository(connector)
+    connection = get_flask_database_connection(app)
+    repository = LocationRepository(connection)
     location_dict = repository.find(location_id).__dict__
 
     return jsonify(location_dict), 200
@@ -42,7 +46,8 @@ def create_location():
 
 @app.delete("/locations/<int:location_id>")
 def delete_location(location_id):
-    repository = LocationRepository(connector)
+    connection = get_flask_database_connection(app)
+    repository = LocationRepository(connection)
     repository.delete(location_id)
 
     return jsonify({"status": "OK"}), 200
@@ -50,14 +55,16 @@ def delete_location(location_id):
 
 @app.get("/bikes")
 def get_bikes():
-    repository = BikeRepository(connector)
+    connection = get_flask_database_connection(app)
+    repository = LocationRepository(connection)
     bikes = [bike.__dict__ for bike in repository.all()]
     
     return jsonify(bikes), 200
 
 @app.get("/bikes/<int:bike_id>")
 def get_bike_by_id(bike_id):
-    repository = BikeRepository(connector)
+    connection = get_flask_database_connection(app)
+    repository = LocationRepository(connection)
     bike_dict = repository.find(bike_id).__dict__
 
     return jsonify(bike_dict), 200
@@ -71,14 +78,19 @@ def create_bike():
     date_found = data["date_found"]
     location_id = data["location_id"]
 
-    repository = BikeRepository(connector)
+    connection = get_flask_database_connection(app)
+    repository = LocationRepository(connection)
     repository.create(Bike(None, brand, colour, condition, date_found, location_id))
 
     return jsonify({"status": "OK"}), 200
 
 @app.delete("/bikes/<int:bike_id>")
 def delete_bike(bike_id):
-    repository = BikeRepository(connector)
+    connection = get_flask_database_connection(app)
+    repository = LocationRepository(connection)
     repository.delete(bike_id)
 
     return jsonify({"status": "OK"}), 200
+
+if __name__ == '__main__':
+    app.run(debug=True, port=int(os.environ.get('PORT', 5000)))
