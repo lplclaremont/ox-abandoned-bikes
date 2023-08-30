@@ -39,10 +39,33 @@ def create_location():
     lat = data["latitude"]
     long = data["longitude"]
 
-    repository = LocationRepository(connector)
+    connection = get_flask_database_connection(app)
+    repository = LocationRepository(connection)
     repository.create(Location(None, name, lat, long))
 
-    return jsonify({"status": "OK"}), 200
+    response = {
+        "status": "OK",
+        "body": "location successfully added"
+    }
+    return jsonify(response), 200
+
+@app.put("/locations/<int:location_id>")
+def update_location(location_id):
+    data = request.get_json()
+    name = data["name"]
+    lat = data["latitude"]
+    long = data["longitude"]
+
+    connection = get_flask_database_connection(app)
+    repository = LocationRepository(connection)
+    
+    repository.update(location_id, Location(None, name, lat, long))
+
+    response = {
+        "status": "OK",
+        "body": "location successfully updated"
+    }
+    return jsonify(response), 200
 
 @app.delete("/locations/<int:location_id>")
 def delete_location(location_id):
@@ -50,7 +73,12 @@ def delete_location(location_id):
     repository = LocationRepository(connection)
     repository.delete(location_id)
 
-    return jsonify({"status": "OK"}), 200
+    response_data = {
+        "status": "OK",
+        "body": "location successfully deleted"
+    }
+
+    return jsonify(response_data), 200
 
 
 @app.get("/bikes")
