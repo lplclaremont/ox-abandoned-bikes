@@ -84,7 +84,7 @@ def delete_location(location_id):
 @app.get("/bikes")
 def get_bikes():
     connection = get_flask_database_connection(app)
-    repository = LocationRepository(connection)
+    repository = BikeRepository(connection)
     bikes = [bike.__dict__ for bike in repository.all()]
     
     return jsonify(bikes), 200
@@ -92,7 +92,7 @@ def get_bikes():
 @app.get("/bikes/<int:bike_id>")
 def get_bike_by_id(bike_id):
     connection = get_flask_database_connection(app)
-    repository = LocationRepository(connection)
+    repository = BikeRepository(connection)
     bike_dict = repository.find(bike_id).__dict__
 
     return jsonify(bike_dict), 200
@@ -107,18 +107,47 @@ def create_bike():
     location_id = data["location_id"]
 
     connection = get_flask_database_connection(app)
-    repository = LocationRepository(connection)
+    repository = BikeRepository(connection)
     repository.create(Bike(None, brand, colour, condition, date_found, location_id))
 
-    return jsonify({"status": "OK"}), 200
+    response = {
+        "status": "OK",
+        "body": "bike successfully added"
+    }
+    return jsonify(response), 200
+
+@app.put("/bikes/<int:bike_id>")
+def update_bike(bike_id):
+    data = request.get_json()
+    brand = data["brand"]
+    colour = data["colour"]
+    condition = data["condition"]
+    date_found = data["date_found"]
+    location_id = data["location_id"]
+
+    connection = get_flask_database_connection(app)
+    repository = BikeRepository(connection)
+    
+    repository.update(bike_id, Bike(None, brand, colour, condition, date_found, location_id))
+
+    response = {
+        "status": "OK",
+        "body": "bike successfully updated"
+    }
+    return jsonify(response), 200
 
 @app.delete("/bikes/<int:bike_id>")
 def delete_bike(bike_id):
     connection = get_flask_database_connection(app)
-    repository = LocationRepository(connection)
+    repository = BikeRepository(connection)
     repository.delete(bike_id)
 
-    return jsonify({"status": "OK"}), 200
+    response = {
+        "status": "OK",
+        "body": "bike successfully deleted"
+    }
+
+    return jsonify(response), 200
 
 if __name__ == '__main__':
     app.run(debug=True, port=int(os.environ.get('PORT', 5000)))

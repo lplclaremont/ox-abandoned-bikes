@@ -67,7 +67,6 @@ def test_update_record(db_connection):
         Location(1, "Updated place", 55.75, -5.25)
     ]
 
-
 """
 When we call LocationRepository#delete
 We remove a record from the database.
