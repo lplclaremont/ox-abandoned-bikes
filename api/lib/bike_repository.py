@@ -28,6 +28,12 @@ class BikeRepository:
                                  [bike.brand, bike.colour, bike.condition, bike.date_found, bike.location_id])
         return None
     
+    # Updates bike in database at given the bike ID
+    def update(self, bike_id, bike):
+        self._connection.execute('UPDATE bikes SET brand = %s, colour = %s, condition = %s, date_found = %s, location_id = %s WHERE id = %s',
+                                [bike.brand, bike.colour, bike.condition, bike.date_found, bike.location_id, bike_id])
+        return None
+    
     # Removes bike from database given the bike ID
     def delete(self, bike_id):
         self._connection.execute('DELETE FROM bikes WHERE id = %s', [bike_id])

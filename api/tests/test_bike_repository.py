@@ -59,6 +59,28 @@ def test_create_record(db_connection):
     ]
 
 """
+When we call BikeRepository#update
+We change a record from the database.
+"""
+def test_update_record(db_connection):
+    db_connection.seed("seeds/abandoned_bikes.sql")
+    repository = BikeRepository(db_connection)
+
+    date2 = dt.datetime.strptime('2022-12-23', '%Y-%m-%d').date()
+    date3 = dt.datetime.strptime('2022-12-24', '%Y-%m-%d').date()
+    new_date = dt.datetime.strptime('2022-12-30', '%Y-%m-%d').date()
+    
+    new_bike = Bike(1, "Updated brand", "Updated colour", "good", new_date, 1)
+    repository.update(1, new_bike)
+
+    result = repository.all()
+    assert result == [
+        Bike(2, "Nigel Dean", "red", "good", date2, 2),
+        Bike(3, "Dawes", "brown", "fair", date3, 2),
+        Bike(1, "Updated brand", "Updated colour", "good", new_date, 1)
+    ]
+
+"""
 When we call BikeRepository#delete
 We remove a record from the database.
 """

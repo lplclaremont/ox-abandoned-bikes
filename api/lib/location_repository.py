@@ -28,7 +28,7 @@ class LocationRepository:
                                  [location.name, location.latitude, location.longitude])     
         return None
         
-    # Updates location in database at given location ID
+    # Updates location in database at given the location ID
     def update(self, location_id, location):
         self._connection.execute('UPDATE locations SET name = %s, latitude = %s, longitude = %s WHERE id = %s',
                                 [location.name, location.latitude, location.longitude, location_id])
