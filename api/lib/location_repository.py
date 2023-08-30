@@ -1,7 +1,6 @@
 from .location import Location
 
 class LocationRepository:
-
     # We initialise with a database connection
     def __init__(self, connection):
         self._connection = connection
@@ -12,7 +11,6 @@ class LocationRepository:
         locations = []
         for row in rows:
             item = Location(row["id"], row["name"], float(row["latitude"]), float(row["longitude"]))
-            print(item)
             locations.append(item)
 
         return locations
@@ -30,6 +28,12 @@ class LocationRepository:
                                  [location.name, location.latitude, location.longitude])     
         return None
         
+    # Updates location in database at given location ID
+    def update(self, location_id, location):
+        self._connection.execute('UPDATE locations SET name = %s, latitude = %s, longitude = %s WHERE id = %s',
+                                [location.name, location.latitude, location.longitude, location_id])
+        return None
+
     # Removes location from database given the location ID
     def delete(self, location_id):
         self._connection.execute('DELETE FROM locations WHERE id = %s', [location_id])

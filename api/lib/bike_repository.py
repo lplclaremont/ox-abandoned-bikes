@@ -1,6 +1,7 @@
 from .bike import Bike
 
 class BikeRepository:
+    # We initialise with a database connection
     def __init__(self, connection):
         self._connection = connection
 
