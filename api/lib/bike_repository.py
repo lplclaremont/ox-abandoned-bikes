@@ -10,17 +10,14 @@ class BikeRepository:
         rows = self._connection.execute('SELECT * FROM bikes')
         bikes = []
         for row in rows:
-            item = Bike(row["id"], row["brand"], row["colour"], row["condition"], row["date_found"], row["notes"], row["location_id"])
-            bikes.append(item)
-
+            bikes.append(self.__row_to_bike(row))
         return bikes
     
     # Returns a single bike given the bike ID
     def find(self, bike_id):
         rows = self._connection.execute('SELECT * FROM bikes WHERE id = %s', [bike_id])
         row = rows[0]
-
-        return Bike(row["id"], row["brand"], row["colour"], row["condition"], row["date_found"], row["notes"], row["location_id"])
+        return self.__row_to_bike(row)
     
     # Adds a new bike to the database
     def create(self, bike):
@@ -38,3 +35,14 @@ class BikeRepository:
     def delete(self, bike_id):
         self._connection.execute('DELETE FROM bikes WHERE id = %s', [bike_id])
         return None
+    
+    # Gets all bikes at a specific location
+    def find_by_location_id(self, id):
+        rows = self._connection.execute('SELECT * FROM bikes WHERE location_id = %s', [id])
+        bikes = []
+        for row in rows:
+            bikes.append(self.__row_to_bike(row))
+        return bikes
+    
+    def __row_to_bike(self, row):
+        return Bike(row["id"], row["brand"], row["colour"], row["condition"], row["date_found"], row["notes"], row["location_id"])
