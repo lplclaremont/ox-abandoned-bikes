@@ -10,17 +10,14 @@ class LocationRepository:
         rows = self._connection.execute('SELECT * FROM locations')
         locations = []
         for row in rows:
-            item = Location(row["id"], row["name"], float(row["latitude"]), float(row["longitude"]))
-            locations.append(item)
-
+            locations.append(self.__row_to_location(row))
         return locations
     
     # Returns a single location given the location ID
     def find(self, location_id):
         rows = self._connection.execute('SELECT * FROM locations WHERE id = %s', [location_id])
         row = rows[0]
-
-        return Location(row["id"], row["name"], float(row["latitude"]), float(row["longitude"]))
+        return self.__row_to_location(row)
     
     # Adds new location to the database
     def create(self, location):
@@ -38,3 +35,7 @@ class LocationRepository:
     def delete(self, location_id):
         self._connection.execute('DELETE FROM locations WHERE id = %s', [location_id])
         return None
+    
+    # Private method to convert a database row into a Location object
+    def __row_to_location(self, row):
+        return Location(row["id"], row["name"], float(row["latitude"]), float(row["longitude"]))
