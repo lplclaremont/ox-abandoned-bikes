@@ -25,6 +25,7 @@ CREATE TABLE bikes (
     colour VARCHAR(255),
     condition VARCHAR(255) CHECK (condition IN ('poor', 'fair', 'good', 'excellent')),
     date_found DATE,
+    notes VARCHAR(255),
     location_id INTEGER REFERENCES locations(id)
 );
 
@@ -33,9 +34,9 @@ INSERT INTO locations (name, latitude, longitude) VALUES ('Rad Cam', 51.75, -1.2
 INSERT INTO locations (name, latitude, longitude) VALUES ('Westgate', 51.75, -1.26);
 INSERT INTO locations (name, latitude, longitude) VALUES ('Mag Bridge', 50, -1.5);
 
-INSERT INTO bikes (brand, colour, condition, date_found, location_id)
-    VALUES ('Raleigh', 'green', 'poor', '2022-12-22', 1);
-INSERT INTO bikes (brand, colour, condition, date_found, location_id)
-    VALUES ('Nigel Dean', 'red', 'good', '2022-12-23', 2);
-INSERT INTO bikes (brand, colour, condition, date_found, location_id)
-    VALUES ('Dawes', 'brown', 'fair', '2022-12-24', 2);
+INSERT INTO bikes (brand, colour, condition, date_found, notes, location_id)
+    VALUES ('Raleigh', 'green', 'poor', '2022-12-22', 'note1', 1);
+INSERT INTO bikes (brand, colour, condition, date_found, notes, location_id)
+    VALUES ('Nigel Dean', 'red', 'good', '2022-12-23', 'note2', 2);
+INSERT INTO bikes (brand, colour, condition, date_found, notes, location_id)
+    VALUES ('Dawes', 'brown', 'fair', '2022-12-24', 'note3', 2);

@@ -10,7 +10,7 @@ class BikeRepository:
         rows = self._connection.execute('SELECT * FROM bikes')
         bikes = []
         for row in rows:
-            item = Bike(row["id"], row["brand"], row["colour"], row["condition"], row["date_found"], row["location_id"])
+            item = Bike(row["id"], row["brand"], row["colour"], row["condition"], row["date_found"], row["notes"], row["location_id"])
             bikes.append(item)
 
         return bikes
@@ -20,18 +20,18 @@ class BikeRepository:
         rows = self._connection.execute('SELECT * FROM bikes WHERE id = %s', [bike_id])
         row = rows[0]
 
-        return Bike(row["id"], row["brand"], row["colour"], row["condition"], row["date_found"], row["location_id"])
+        return Bike(row["id"], row["brand"], row["colour"], row["condition"], row["date_found"], row["notes"], row["location_id"])
     
     # Adds a new bike to the database
     def create(self, bike):
-        self._connection.execute('INSERT INTO bikes (brand, colour, condition, date_found, location_id) VALUES (%s, %s, %s, %s, %s)',
-                                 [bike.brand, bike.colour, bike.condition, bike.date_found, bike.location_id])
+        self._connection.execute('INSERT INTO bikes (brand, colour, condition, date_found, notes, location_id) VALUES (%s, %s, %s, %s, %s, %s)',
+                                 [bike.brand, bike.colour, bike.condition, bike.date_found, bike.notes, bike.location_id])
         return None
     
     # Updates bike in database at given the bike ID
     def update(self, bike_id, bike):
-        self._connection.execute('UPDATE bikes SET brand = %s, colour = %s, condition = %s, date_found = %s, location_id = %s WHERE id = %s',
-                                [bike.brand, bike.colour, bike.condition, bike.date_found, bike.location_id, bike_id])
+        self._connection.execute('UPDATE bikes SET brand = %s, colour = %s, condition = %s, date_found = %s, notes = %s, location_id = %s WHERE id = %s',
+                                [bike.brand, bike.colour, bike.condition, bike.date_found, bike.notes, bike.location_id, bike_id])
         return None
     
     # Removes bike from database given the bike ID

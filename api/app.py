@@ -8,9 +8,6 @@ from lib.bike_repository import BikeRepository
 from lib.database_connection import get_flask_database_connection
 
 app = Flask(__name__)
-
-# connector = DatabaseConnection()
-# connector.connect('abandoned_bikes')
     
 @app.get("/")
 def home():
@@ -104,11 +101,12 @@ def create_bike():
     colour = data["colour"]
     condition = data["condition"]
     date_found = data["date_found"]
+    notes = data["notes"]
     location_id = data["location_id"]
 
     connection = get_flask_database_connection(app)
     repository = BikeRepository(connection)
-    repository.create(Bike(None, brand, colour, condition, date_found, location_id))
+    repository.create(Bike(None, brand, colour, condition, date_found, notes, location_id))
 
     response = {
         "status": "OK",

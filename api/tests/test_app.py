@@ -140,6 +140,7 @@ def test_get_bikes(web_client, db_connection):
         "colour": "green",
         "condition": "poor",
         "date_found": "Thu, 22 Dec 2022 00:00:00 GMT",
+        "notes": "note1",
         "location_id": 1   
     }
 
@@ -161,6 +162,7 @@ def test_get_single_bikes(web_client, db_connection):
         "colour": "red",
         "condition": "good",
         "date_found": "Fri, 23 Dec 2022 00:00:00 GMT",
+        "notes": "note2",
         "location_id": 2
     }
 
@@ -175,6 +177,7 @@ def test_post_bikes(web_client, db_connection):
         "colour": "blue",
         "condition": "poor",
         "date_found": "2023-08-10",
+        "notes": "note",
         "location_id": 1
     })
 
@@ -192,6 +195,7 @@ def test_post_bikes(web_client, db_connection):
         "colour": "blue",
         "condition": "poor",
         "date_found": "Thu, 10 Aug 2023 00:00:00 GMT",
+        "notes": "note",
         "location_id": 1
     }
 
@@ -209,6 +213,7 @@ def test_post_bikes(web_client, db_connection):
         "colour": "blue",
         "condition": "poor",
         "date_found": "Thu, 10 Aug 2023 00:00:00 GMT",
+        "notes": "new note",
         "location_id": 1
     })
 
@@ -226,6 +231,7 @@ def test_post_bikes(web_client, db_connection):
         "colour": "blue",
         "condition": "poor",
         "date_found": "Thu, 10 Aug 2023 00:00:00 GMT",
+        "notes": "new note",
         "location_id": 1
     }
 
