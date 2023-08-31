@@ -22,26 +22,21 @@ class LocationRepository:
             FROM locations
             LEFT JOIN bikes ON locations.id = bikes.location_id
         '''
+
         rows = self._connection.execute(query)
-        locations = []
-        # Iterate through rows beginning with the index 0
-        i = 0
-        while i < len(rows):
-            bikes = []
-            current_row = rows[i]
-            # Create a location for current row
-            location = Location(current_row["location_id"], current_row["name"],
-                     float(current_row["latitude"]), float(current_row["longitude"]))
-            # Now populate bikes array with data from the rows and stop when next row is different location
-            while i < len(rows) and rows[i]["location_id"] == current_row["location_id"]:
-                if rows[i]["bike_id"]:
-                    bike = Bike(rows[i]["bike_id"], rows[i]["brand"], rows[i]["colour"],
-                            rows[i]["condition"], rows[i]["date_found"], rows[i]["notes"], rows[i]["location_id"])
-                    bikes.append(bike)
-                # Increment i to go to next row
-                i += 1
-            location.bikes = bikes
-            locations.append(location)
+        location_dict = {}  # Use a dictionary to organize rows by location_id
+        for row in rows:
+            location_id = row["location_id"]
+            if location_id not in location_dict:
+                location = self.__row_to_location(row, "location_id")
+                location_dict[location_id] = {"location": location, "bikes": []}
+            if row["bike_id"]:
+                bike = self.__row_to_bike(row, "bike_id")
+                location_dict[location_id]["bikes"].append(bike)
+
+        locations = [data["location"] for data in location_dict.values()]
+        for location_data in location_dict.values():
+            location_data["location"].bikes = location_data["bikes"]
         return locations
 
     # Returns a single location given the location ID
@@ -63,11 +58,12 @@ class LocationRepository:
         bikes = []
 
         for row in rows:
-            bike = Bike(row["bike_id"], row["brand"], row["colour"],
-                        row["condition"], row["date_found"], row["notes"], row["location_id"])
+            bike = self.__row_to_bike(row, "bike_id")
             bikes.append(bike)
 
-        return Location(row["location_id"], row["name"], float(row["latitude"]), float(row["longitude"]), bikes)
+        location = self.__row_to_location(row, "location_id")
+        location.bikes = bikes
+        return location
 
     # Adds new location to the database
     def create(self, location):
@@ -87,6 +83,9 @@ class LocationRepository:
         return None
     
     # Private method to convert a database row into a Location object
-    def __row_to_location(self, row):
-        return Location(row["id"], row["name"], float(row["latitude"]), float(row["longitude"]))
+    def __row_to_location(self, row, id="id"):
+        return Location(row[id], row["name"], float(row["latitude"]), float(row["longitude"]))
     
+    # Private method to convert a database row into a Bike object
+    def __row_to_bike(self, row, id="id"):
+        return Bike(row[id], row["brand"], row["colour"], row["condition"], row["date_found"], row["notes"], row["location_id"])
