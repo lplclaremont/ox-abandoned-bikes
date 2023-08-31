@@ -25,7 +25,10 @@ def get_locations():
 def get_location_by_id(location_id):
     connection = get_flask_database_connection(app)
     repository = LocationRepository(connection)
-    location_dict = repository.find(location_id).__dict__
+    location = repository.find_with_bikes(location_id)
+    location.bikes = [bike.__dict__ for bike in location.bikes]
+
+    location_dict = location.__dict__
 
     return jsonify(location_dict), 200
 

@@ -37,16 +37,26 @@ Test GET /locations/id returns a single location
 """
 def test_get_single_location(web_client, db_connection):
     db_connection.seed("seeds/abandoned_bikes.sql")
-    response = web_client.get("/locations/2")
+    response = web_client.get("/locations/1")
     data = json.loads(response.data)
 
     assert response.status_code == 200
     assert data == {
-        "id": 2,
-        "name": "Westgate",
+        "id": 1,
+        "name": "Rad Cam",
         "latitude": 51.75,
-        "longitude": -1.26,
-        "bikes": []
+        "longitude": -1.25,
+        "bikes": [
+            {
+                "id": 1,
+                "brand": "Raleigh",
+                "colour": "green",
+                "condition": "poor",
+                "date_found": "Thu, 22 Dec 2022 00:00:00 GMT",
+                "notes": "note1",
+                "location_id": 1   
+            }
+        ]
     }
 
 """
