@@ -1,5 +1,5 @@
 class Location:    
-    def __init__(self, id, name, latitude, longitude, bikes = []):
+    def __init__(self, id, name, latitude, longitude, bikes=[]):
         self.id = id
         self.name = name
         self.latitude = latitude
@@ -10,4 +10,4 @@ class Location:
         return self.__dict__ == other.__dict__
     
     def __repr__(self):
-        return f"Location({self.id}, {self.name}, {self.latitude}, {self.longitude})"
+        return f"Location({self.id}, {self.name}, {self.latitude}, {self.longitude}, {self.bikes})"

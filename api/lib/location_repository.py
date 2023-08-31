@@ -13,6 +13,71 @@ class LocationRepository:
         for row in rows:
             locations.append(self.__row_to_location(row))
         return locations
+    
+    def all_with_bikes(self):
+        query = '''
+            SELECT locations.id as location_id, locations.name, locations.latitude, locations.longitude,
+                bikes.id AS bike_id, bikes.brand, bikes.colour, 
+                bikes.condition, bikes.date_found, bikes.notes
+            FROM locations
+            LEFT JOIN bikes ON locations.id = bikes.location_id
+        '''
+        rows = self._connection.execute(query)
+        
+        locations = []
+
+        i = 0
+        while i < len(rows):
+            #print(rows[3])
+            bikes = []
+            current_row = rows[i]
+            #print("Row number: ", i)
+            location = Location(current_row["location_id"], current_row["name"],
+                     float(current_row["latitude"]), float(current_row["longitude"]))
+            
+            print("Index looking at: ", i)
+            while i < len(rows) and rows[i]["location_id"] == current_row["location_id"]:
+                #print("Checking for index: ", i)
+                if rows[i]["bike_id"]:
+                    bike = Bike(rows[i]["bike_id"], rows[i]["brand"], rows[i]["colour"],
+                            rows[i]["condition"], rows[i]["date_found"], rows[i]["notes"], rows[i]["location_id"])
+                    bikes.append(bike)
+                i += 1 
+            location.bikes = bikes
+            locations.append(location)
+            # print("MADE LOCATION: ", location.name)
+            # print("WITH BIKES: ", bikes)
+            # print(" ")
+
+        return locations
+                
+
+        # for row in rows:
+            # location_id = row['location_id']
+            # location = 
+            # print("LOOKING AT ROW with LOC ID: ", location_id)
+            # location = Location(row["location_id"], row["name"],
+            #         float(row["latitude"]), float(row["longitude"]))
+            # # Add the location to list if not done already
+            # if location_id not in locations:
+            #     print("ADDING LOCATION: ", location.name)
+            #     locations[location_id] = location
+            # # now, if there is a bike in this row..
+            # if row['bike_id']:
+            #     # create a bike object
+            #     bike = Bike(row["bike_id"], row["brand"], row["colour"],
+            #             row["condition"], row["date_found"], row["notes"], row["location_id"])
+            #     print("Made a bike for: ", bike.brand)
+            #     print("It's Location ID is: ", bike.location_id)
+            #     print("So we want to add it to: ", locations[location_id])
+            #     # and append it onto the location with the correct location_id.. ?
+            #     print("ADDING BIKE: ", bike.brand, "TO: ", locations[location_id].name)
+            #     locations[location_id].bikes.append(bike)
+            #     print("ALL LOCATIONS: ", locations.values())
+            #     print("")
+
+
+        return list(locations)
 
     # Returns a single location given the location ID
     def find(self, location_id):
@@ -59,3 +124,4 @@ class LocationRepository:
     # Private method to convert a database row into a Location object
     def __row_to_location(self, row):
         return Location(row["id"], row["name"], float(row["latitude"]), float(row["longitude"]))
+    

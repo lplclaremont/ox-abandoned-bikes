@@ -15,7 +15,7 @@ We can format locations to strings nicely
 """
 def test_locations_format_nicely():
     location = Location(1, "Test location", 1.0, 2.0)
-    assert str(location) == "Location(1, Test location, 1.0, 2.0)"
+    assert str(location) == "Location(1, Test location, 1.0, 2.0, [])"
 
 """
 We can compare two identical locations

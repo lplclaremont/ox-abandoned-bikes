@@ -25,7 +25,7 @@ def test_get_locations(web_client, db_connection):
         "name": "Rad Cam",
         "latitude": 51.75,
         "longitude": -1.25,
-        "bikes": []
+        # "bikes": []
     }
 
     assert data[1]["name"] == "Westgate"

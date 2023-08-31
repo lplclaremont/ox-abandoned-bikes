@@ -21,6 +21,31 @@ def test_get_all_records(db_connection): # See conftest.py to learn what `db_con
         Location(3,"Mag Bridge", 50, -1.5)
     ]
 
+"""
+When we call LocationRepository#all_with_bikes
+We get a list of Location objects with bikes array.
+"""
+def test_get_all_with_bikes(db_connection): 
+    db_connection.seed("seeds/abandoned_bikes.sql")
+    repository = LocationRepository(db_connection)
+
+    date1 = dt.datetime.strptime('2022-12-22', '%Y-%m-%d').date()
+    date2 = dt.datetime.strptime('2022-12-23', '%Y-%m-%d').date()
+    date3 = dt.datetime.strptime('2022-12-24', '%Y-%m-%d').date()
+
+    bike1 = Bike(1, "Raleigh", "green", "poor", date1, "note1", 1)
+    bike2 = Bike(2, "Nigel Dean", "red", "good", date2, "note2", 2)
+    bike3 = Bike(3, "Dawes", "brown", "fair", date3, "note3", 2)
+
+    locations = repository.all_with_bikes()
+
+    assert len(locations) == 3
+    assert locations == [
+        Location(1, "Rad Cam", 51.75, -1.25, [bike1]),
+        Location(2, "Westgate", 51.75, -1.26, [bike3, bike2]),
+        Location(3,"Mag Bridge", 50.0, -1.5)
+    ]
+
 
 """
 When we call LocationRepository#find
