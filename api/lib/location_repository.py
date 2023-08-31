@@ -28,16 +28,12 @@ class LocationRepository:
 
         i = 0
         while i < len(rows):
-            #print(rows[3])
             bikes = []
             current_row = rows[i]
-            #print("Row number: ", i)
             location = Location(current_row["location_id"], current_row["name"],
                      float(current_row["latitude"]), float(current_row["longitude"]))
             
-            print("Index looking at: ", i)
             while i < len(rows) and rows[i]["location_id"] == current_row["location_id"]:
-                #print("Checking for index: ", i)
                 if rows[i]["bike_id"]:
                     bike = Bike(rows[i]["bike_id"], rows[i]["brand"], rows[i]["colour"],
                             rows[i]["condition"], rows[i]["date_found"], rows[i]["notes"], rows[i]["location_id"])
@@ -45,9 +41,6 @@ class LocationRepository:
                 i += 1 
             location.bikes = bikes
             locations.append(location)
-            # print("MADE LOCATION: ", location.name)
-            # print("WITH BIKES: ", bikes)
-            # print(" ")
 
         return locations
                 

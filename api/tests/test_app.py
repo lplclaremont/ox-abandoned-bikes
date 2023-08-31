@@ -25,7 +25,15 @@ def test_get_locations(web_client, db_connection):
         "name": "Rad Cam",
         "latitude": 51.75,
         "longitude": -1.25,
-        # "bikes": []
+        "bikes": [{
+            "id": 1,
+            "brand": "Raleigh",
+            "colour": "green",
+            "condition": "poor",
+            "date_found": "Thu, 22 Dec 2022 00:00:00 GMT",
+            "notes": "note1",
+            "location_id": 1   
+        }]
     }
 
     assert data[1]["name"] == "Westgate"
