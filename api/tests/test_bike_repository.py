@@ -98,21 +98,3 @@ def test_delete_record(db_connection):
         Bike(2, "Nigel Dean", "red", "good", date2, "note2", 2),
         Bike(3, "Dawes", "brown", "fair", date3, "note3", 2)
     ]
-
-"""
-When we call BikeRepository#find_by_location(id)
-We get back a list of Bike objects whose location_id matches input
-"""
-def test_get_all_bikes_at_location(db_connection):
-    db_connection.seed("seeds/abandoned_bikes.sql")
-    repository = BikeRepository(db_connection)
-
-    bikes = repository.find_by_location_id(2)
-    date2 = dt.datetime.strptime('2022-12-23', '%Y-%m-%d').date()
-    date3 = dt.datetime.strptime('2022-12-24', '%Y-%m-%d').date()
-
-    assert len(bikes) == 2
-    assert bikes == [
-        Bike(2, "Nigel Dean", "red", "good", date2, "note2", 2),
-        Bike(3, "Dawes", "brown", "fair", date3, "note3", 2)
-    ]

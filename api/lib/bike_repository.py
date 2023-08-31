@@ -36,14 +36,6 @@ class BikeRepository:
         self._connection.execute('DELETE FROM bikes WHERE id = %s', [bike_id])
         return None
     
-    # Gets all bikes at a specific location
-    def find_by_location_id(self, id):
-        rows = self._connection.execute('SELECT * FROM bikes WHERE location_id = %s', [id])
-        bikes = []
-        for row in rows:
-            bikes.append(self.__row_to_bike(row))
-        return bikes
-    
     # Private method to convert a database row into a Bike object
     def __row_to_bike(self, row):
         return Bike(row["id"], row["brand"], row["colour"], row["condition"], row["date_found"], row["notes"], row["location_id"])
