@@ -25,7 +25,8 @@ def test_get_locations(web_client, db_connection):
         "id": 1,
         "name": "Rad Cam",
         "latitude": 51.75,
-        "longitude": -1.25
+        "longitude": -1.25,
+        "bikes": []
     }
 
     assert data[1]["name"] == "Westgate"
@@ -44,7 +45,8 @@ def test_get_single_location(web_client, db_connection):
         "id": 2,
         "name": "Westgate",
         "latitude": 51.75,
-        "longitude": -1.26
+        "longitude": -1.26,
+        "bikes": []
     }
 
 """

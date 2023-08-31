@@ -1,6 +1,7 @@
 from lib.location_repository import LocationRepository
 from lib.location import Location
-from decimal import Decimal
+from lib.bike import Bike
+import datetime as dt
 
 
 """
@@ -15,10 +16,11 @@ def test_get_all_records(db_connection): # See conftest.py to learn what `db_con
 
     assert len(locations) == 3
     assert locations == [
-        Location(1, "Rad Cam", 51.75, -1.25),
+        Location(1, "Rad Cam", 51.75, -1.25,),
         Location(2, "Westgate", 51.75, -1.26),
         Location(3,"Mag Bridge", 50, -1.5)
     ]
+
 
 """
 When we call LocationRepository#find
@@ -30,6 +32,24 @@ def test_get_single_record(db_connection):
 
     location = repository.find(2)
     assert location == Location(2, "Westgate", 51.75, -1.26)
+
+"""
+When we call LocationRepository#find_with_bikes
+We get a Location object which contains a bikes array.
+"""
+def test_find_with_bikes(db_connection):
+    db_connection.seed("seeds/abandoned_bikes.sql")
+    repository = LocationRepository(db_connection)
+
+    location = repository.find_with_bikes(2)
+
+    date2 = dt.datetime.strptime('2022-12-23', '%Y-%m-%d').date()
+    date3 = dt.datetime.strptime('2022-12-24', '%Y-%m-%d').date()
+
+    bike2 = Bike(2, "Nigel Dean", "red", "good", date2, "note2", 2)
+    bike3 = Bike(3, "Dawes", "brown", "fair", date3, "note3", 2)
+
+    assert location == Location(2, "Westgate", 51.75, -1.26, [bike2, bike3])
 
 """
 When we call LocationRepository#create
