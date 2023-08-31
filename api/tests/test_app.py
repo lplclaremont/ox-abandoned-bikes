@@ -1,5 +1,4 @@
 from flask import json
-import datetime as dt
 
 from lib.database_connection import DatabaseConnection
 
