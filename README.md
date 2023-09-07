@@ -51,7 +51,7 @@ npm install
 npm run serve
 ```
 
-Now you can open a browser and visit the site locally at http://localhost:8080/
+Now you can open a browser and visit the site locally at http://localhost:5173/
 
 ### Testing the program
 Inside the ox-abandoned-bikes/api directory, run the following:
