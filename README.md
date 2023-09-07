@@ -48,7 +48,7 @@ cd ox-abandoned-bikes/frontend
 npm install
 
 # run the frontend server
-npm run serve
+npm run dev
 ```
 
 Now you can open a browser and visit the site locally at http://localhost:5173/
