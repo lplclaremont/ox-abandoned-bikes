@@ -1,6 +1,7 @@
 <script setup>
   import { ref, onMounted } from 'vue';
   import { fetchBikes } from '../requests/bikeRequests.js';
+  import Bike from '../components/Bike.vue'
 
   const bikes = ref([])
 
@@ -20,9 +21,12 @@
 
 <template>
   <main>
-    <h1>Home page here!</h1>
+    <h1>Oxford's Abandoned Bikes!</h1>
     <li v-for="bike in bikes">
       {{ bike }}
+      <div>
+        <Bike v-bind="bike" />
+      </div>
     </li>
     
   </main>
