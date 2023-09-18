@@ -1,7 +1,10 @@
 <script setup>
-defineProps(['id', 'brand', 'colour', 'condition', 'date_found', 'notes', 'location_id'])
+import BikeIcon from './BikeIcon.vue';
+defineProps(['id', 'brand', 'colour', 'condition', 'date_found', 'notes', 'location_id']);
 </script>
 
 <template>
-    <h4>{{ brand }}, {{ colour }}, {{ condition }}, {{ date_found }}, {{ notes }}</h4>
+    <BikeIcon v-bind:colour="colour" />
+    <h4>{{ brand }}, {{ condition }}, {{ date_found }}</h4>
+    <p>More details...</p>
 </template>

@@ -22,12 +22,9 @@
 <template>
   <main>
     <h1>Oxford's Abandoned Bikes!</h1>
-    <li v-for="bike in bikes">
-      {{ bike }}
-      <div>
+      <div v-for="bike in bikes" class="bikes-container">
         <Bike v-bind="bike" />
       </div>
-    </li>
     
   </main>
 </template>
