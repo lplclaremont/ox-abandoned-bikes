@@ -160,7 +160,8 @@ def test_get_bikes(web_client, db_connection):
         "condition": "poor",
         "date_found": "Thu, 22 Dec 2022 00:00:00 GMT",
         "notes": "note1",
-        "location_id": 1   
+        "location_id": 1,
+        "location_name": "Rad Cam"
     }
 
     assert data[1]["brand"] == "Nigel Dean"
