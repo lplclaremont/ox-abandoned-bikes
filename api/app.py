@@ -89,8 +89,16 @@ def delete_location(location_id):
 @app.get("/bikes")
 def get_bikes():
     connection = get_flask_database_connection(app)
-    repository = BikeRepository(connection)
-    bikes = [bike.__dict__ for bike in repository.all()]
+    bike_repository = BikeRepository(connection)
+    location_repository = LocationRepository(connection)
+
+    bikes = []
+
+    for bike in bike_repository.all():
+        location = location_repository.find(bike.location_id)
+        bike_dict = bike.__dict__
+        bike_dict["location_name"] = location.name
+        bikes.append(bike_dict)
     
     return jsonify(bikes), 200
 

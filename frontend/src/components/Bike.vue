@@ -1,6 +1,6 @@
 <script setup>
 import BikeIcon from './BikeIcon.vue';
-defineProps(['id', 'brand', 'colour', 'condition', 'date_found', 'notes', 'location_id']);
+defineProps(['id', 'brand', 'colour', 'condition', 'date_found', 'notes', 'location_id', 'location_name']);
 </script>
 
 <template>
@@ -15,6 +15,10 @@ defineProps(['id', 'brand', 'colour', 'condition', 'date_found', 'notes', 'locat
             <div class="date-container">
                 <img alt="date icon" src="../assets/date.svg">
                 <div class="date-info">Found on {{ date_found }}</div>
+            </div>
+            <div class="location-container">
+                <p>{{ location_name }}</p>
+
             </div>
             <p>More details...</p>
         </div>

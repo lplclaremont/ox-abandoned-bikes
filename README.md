@@ -32,7 +32,6 @@ cd ox-abandoned-bikes/api
 pipenv install -r requirements.txt
 
 # create the database and test database
-brew install postgresql
 createdb abandoned_bikes
 createdb abandoned_bikes_test
 
