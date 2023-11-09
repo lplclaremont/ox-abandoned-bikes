@@ -23,6 +23,14 @@ This class handles the actual behaviour of the API and uses instances of the mod
 - **Connection to PostgreSQL database:**
 This is done through the psycopg Python library. I've decided to not use a MVC framework, to aid my understanding, and manually implement the connection to the database by sending the SQL queries in my code with certain parameters. This can be seen in the repository class, which utilises the DatabaseConnection class in order to act as an abstraction of the code which connects us to the PostgreSQL database.
 
+### Design
+The application uses Model classes and Repository classes to handle the communication between the python program and the database. A DatabaseConnection class is also necessary to streamline communication to the postgres database.
+When a request is received from the client, the flask application directs the request to the respective code in the repository classes.
+The repository class then uses the model class in order to interact with entries in database (using the DatabaseConnection class). If we are responding to a get request, then the HTTP response includes the retrieved data from the database.
+A diagram of the structure can be seen below:
+
+![Screenshot of the program structure](./images/structure-diagram-screenshot.png)
+
 ### Running the program
 Clone this repo and start the backend server:
 ```bash

@@ -57,7 +57,6 @@ def update_location(location_id):
 
     connection = get_flask_database_connection(app)
     repository = LocationRepository(connection)
-    
     repository.update(location_id, location)
 
     response = {
