@@ -25,8 +25,11 @@ This is done through the psycopg Python library. I've decided to not use a MVC f
 
 ### Design
 The application uses Model classes and Repository classes to handle the communication between the python program and the database. A DatabaseConnection class is also necessary to streamline communication to the postgres database.
+
 When a request is received from the client, the flask application directs the request to the respective code in the repository classes.
+
 The repository class then uses the model class in order to interact with entries in database (using the DatabaseConnection class). If we are responding to a get request, then the HTTP response includes the retrieved data from the database.
+
 A diagram of the structure can be seen below:
 
 ![Screenshot of the program structure](./images/structure-diagram-screenshot.png)
