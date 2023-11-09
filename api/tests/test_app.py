@@ -172,7 +172,7 @@ def test_get_bikes(web_client, db_connection):
 """
 Test GET /bikes/id returns a single bikes
 """
-def test_get_single_bikes(web_client, db_connection):
+def test_get_single_bike(web_client, db_connection):
     db_connection.seed("seeds/abandoned_bikes.sql")
     response = web_client.get("/bikes/2")
     data = json.loads(response.data)
@@ -186,7 +186,7 @@ def test_get_single_bikes(web_client, db_connection):
         "date_found": "Fri, 23 Dec 2022 00:00:00 GMT",
         "notes": "note2",
         "location_id": 2,
-        "location_name": None
+        "location_name": "Westgate"
     }
 
 """

@@ -33,7 +33,7 @@ def test_get_single_record(db_connection):
 
     bike = repository.find(2)
     date = dt.datetime.strptime('2022-12-23', '%Y-%m-%d').date()
-    assert bike == Bike(2, "Nigel Dean", "red", "good", date, "note2", 2)
+    assert bike == Bike(2, "Nigel Dean", "red", "good", date, "note2", 2, "Westgate")
 
 """
 When we call BikeRepository#create

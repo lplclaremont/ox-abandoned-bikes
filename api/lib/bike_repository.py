@@ -24,9 +24,18 @@ class BikeRepository:
     
     # Returns a single bike given the bike ID
     def find(self, bike_id):
-        rows = self._connection.execute('SELECT * FROM bikes WHERE id = %s', [bike_id])
+        query = '''
+            SELECT bikes.id, bikes.brand, bikes.colour, bikes.condition,
+            bikes.date_found, bikes.notes, locations.id as location_id, locations.name as location_name
+            FROM bikes JOIN locations
+            ON locations.id = bikes.location_id
+            WHERE bikes.id = %s
+        '''
+        rows = self._connection.execute(query, [bike_id])
         row = rows[0]
-        return self.__row_to_bike(row)
+        bike = self.__row_to_bike(row)
+        bike.set_location_name(row["location_name"])
+        return bike
     
     # Adds a new bike to the database
     def create(self, bike):
