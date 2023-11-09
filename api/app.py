@@ -14,7 +14,7 @@ CORS(app)
     
 @app.get("/")
 def home():
-    return "Hello world!"
+    return "Welcome to abandoned bikes api!"
 
 @app.get("/locations")
 def get_locations():
