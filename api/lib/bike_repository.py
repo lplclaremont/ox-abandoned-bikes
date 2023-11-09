@@ -7,10 +7,19 @@ class BikeRepository:
 
     # Returns a list of all bikes from database
     def all(self):
-        rows = self._connection.execute('SELECT * FROM bikes')
+        query = '''
+            SELECT bikes.id, bikes.brand, bikes.colour, bikes.condition,
+            bikes.date_found, bikes.notes, locations.id as location_id, locations.name as location_name
+            FROM bikes JOIN locations
+            ON locations.id = bikes.location_id
+            ORDER BY bikes.id
+        '''
+        rows = self._connection.execute(query)
         bikes = []
         for row in rows:
-            bikes.append(self.__row_to_bike(row))
+            bike_obj = self.__row_to_bike(row)
+            bike_obj.set_location_name(row["location_name"])
+            bikes.append(bike_obj)
         return bikes
     
     # Returns a single bike given the bike ID

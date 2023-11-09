@@ -1,5 +1,5 @@
 class Bike:
-    def __init__(self, id, brand, colour, condition, date_found, notes, location_id):
+    def __init__(self, id, brand, colour, condition, date_found, notes, location_id, location_name=None):
         self.id = id
         self.brand = brand
         self.colour = colour
@@ -7,6 +7,10 @@ class Bike:
         self.date_found = date_found
         self.notes = notes
         self.location_id = location_id
+        self.location_name = location_name
+
+    def set_location_name(self, location_name):
+        self.location_name = location_name
 
     def __eq__(self, other):
         return self.__dict__ == other.__dict__
