@@ -13,12 +13,14 @@ def test_bike_constructs():
     assert bike.notes == "notes"
     assert bike.location_id == 1
 
+
 """
 We can format bikes to strings nicely
 """
 def test_bikes_format_nicely():
     bike = Bike(1, "Test brand", "Test colour", "fair", "2023-08-25", "notes", 1)
     assert str(bike) == "Bike(1, Test brand, Test colour, fair, 2023-08-25, notes, 1)"
+
 
 """
 We can compare two identical bikes
@@ -28,3 +30,4 @@ def test_bikes_are_equal():
     bike1 = Bike(1, "Test brand", "Test colour", "fair", "2023-08-25", "notes", 1)
     bike2 = Bike(1, "Test brand", "Test colour", "fair", "2023-08-25", "notes", 1)
     assert bike1==bike2
+    

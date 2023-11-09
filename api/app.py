@@ -131,12 +131,13 @@ def update_bike(bike_id):
     colour = data["colour"]
     condition = data["condition"]
     date_found = data["date_found"]
+    notes = data["notes"]
     location_id = data["location_id"]
 
     connection = get_flask_database_connection(app)
     repository = BikeRepository(connection)
     
-    repository.update(bike_id, Bike(None, brand, colour, condition, date_found, location_id))
+    repository.update(bike_id, Bike(None, brand, colour, condition, date_found, notes, location_id))
 
     response = {
         "status": "OK",

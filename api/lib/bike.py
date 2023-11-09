@@ -9,9 +9,6 @@ class Bike:
         self.location_id = location_id
         self.location_name = location_name
 
-    def set_location_name(self, location_name):
-        self.location_name = location_name
-
     def __eq__(self, other):
         return self.__dict__ == other.__dict__
 

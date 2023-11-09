@@ -5,6 +5,8 @@ from app import app
 # This is a Pytest fixture.
 # It creates an object that we can use in our tests.
 # We will use it to create a database connection.
+
+# This one makes a DatabaseConnection instance and connects it to the test database
 @pytest.fixture
 def db_connection():
     conn = DatabaseConnection()
