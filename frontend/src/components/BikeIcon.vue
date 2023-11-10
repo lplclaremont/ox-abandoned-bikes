@@ -19,4 +19,3 @@ defineProps(['colour'])
     height: 100px;
 }
 </style>
- <!-- width="100px" height="100px" viewBox="0 0 24 24"  -->
