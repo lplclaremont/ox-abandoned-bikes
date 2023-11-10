@@ -18,7 +18,6 @@ defineProps(['id', 'brand', 'colour', 'condition', 'date_found', 'notes', 'locat
             </div>
             <div class="location-container">
                 <p>{{ location_name }}</p>
-
             </div>
             <p>More details...</p>
         </div>
