@@ -1,7 +1,7 @@
 import { describe, it, expect } from 'vitest'
 
 import { mount } from '@vue/test-utils'
-import Bike from '../Bike.vue'
+import Bike from '../Bike/Bike.vue'
 
 describe('Bike', () => {
   it('renders properly with correct details', () => {

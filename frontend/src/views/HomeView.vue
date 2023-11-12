@@ -1,7 +1,7 @@
 <script setup>
   import { ref, onMounted } from 'vue';
   import { fetchBikes } from '../requests/bikeRequests.js';
-  import Bike from '../components/Bike.vue'
+  import Bike from '../components/Bike/Bike.vue'
 
   const bikes = ref([])
 

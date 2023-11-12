@@ -1,5 +1,7 @@
 <script setup>
-import BikeIcon from './BikeIcon.vue';
+import BikeIcon from '../BikeIcon/BikeIcon.vue';
+import gears from '../../assets/gears.svg';
+import dateIcon from '../../assets/dateIcon.svg';
 defineProps(['id', 'brand', 'colour', 'condition', 'date_found', 'notes', 'location_id', 'location_name']);
 </script>
 
@@ -9,11 +11,11 @@ defineProps(['id', 'brand', 'colour', 'condition', 'date_found', 'notes', 'locat
         <div class="bike-info">
             <h3>{{ brand }}</h3>
             <div class="condition-container">
-                <img alt="gears icon" src="../assets/gears.svg">
+                <img alt="gears icon" :src="gears">
                 <div class="condition-info">Condition, {{ condition }}</div>
             </div>
             <div class="date-container">
-                <img alt="date icon" src="../assets/date.svg">
+                <img alt="date icon" :src="dateIcon">
                 <div class="date-info">Found on {{ date_found }}</div>
             </div>
             <div class="location-container">
