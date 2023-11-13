@@ -53,18 +53,16 @@ class LocationRepository:
         query = '''
             SELECT locations.id as location_id, locations.name, locations.latitude, locations.longitude,
                 bikes.id AS bike_id, bikes.brand, bikes.colour, bikes.condition, bikes.date_found, bikes.notes
-            FROM locations JOIN bikes
+            FROM locations LEFT JOIN bikes
             ON locations.id = bikes.location_id
             WHERE locations.id = %s
         '''
-        rows = self._connection.execute(query, [location_id])
-        bikes = []
 
-        for row in rows:
-            bike = self.__row_to_bike(row, "bike_id")
-            bikes.append(bike)
-        location = self.__row_to_location(row, "location_id")
-        location.bikes = bikes
+        rows = self._connection.execute(query, [location_id])
+        location = self.__row_to_location(rows[0], "location_id") 
+        if rows[0]["bike_id"] is not None:
+            bikes = [self.__row_to_bike(row, "bike_id") for row in rows]
+            location.bikes = bikes
 
         return location
 
@@ -96,6 +94,6 @@ class LocationRepository:
         return Location(row[id], row["name"], float(row["latitude"]), float(row["longitude"]))
     
     # Private method to convert a database row into a Bike object
-    def __row_to_bike(self, row, id="id"):
-        return Bike(row[id], row["brand"], row["colour"], row["condition"],
+    def __row_to_bike(self, row, id_key="id"):
+        return Bike(row[id_key], row["brand"], row["colour"], row["condition"],
                 row["date_found"], row["notes"], row["location_id"])
