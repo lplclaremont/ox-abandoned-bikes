@@ -1,4 +1,4 @@
-from lib.bike import Bike
+from lib.models.bike import Bike
 
 """
 Bike constructs with an id, brand, colour, condition, date_found and location_id

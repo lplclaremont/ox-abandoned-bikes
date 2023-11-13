@@ -1,5 +1,5 @@
-from lib.bike_repository import BikeRepository
-from lib.bike import Bike
+from lib.repositories.bike_repository import BikeRepository
+from lib.models.bike import Bike
 import datetime as dt
 
 """

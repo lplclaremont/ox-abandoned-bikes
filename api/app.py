@@ -3,10 +3,10 @@ import os
 from flask import Flask, jsonify, request, json
 from flask_cors import CORS
 
-from lib.location import Location
-from lib.location_repository import LocationRepository
-from lib.bike import Bike
-from lib.bike_repository import BikeRepository
+from lib.models.location import Location
+from lib.repositories.location_repository import LocationRepository
+from lib.models.bike import Bike
+from lib.repositories.bike_repository import BikeRepository
 from lib.database_connection import get_flask_database_connection
 
 app = Flask(__name__)

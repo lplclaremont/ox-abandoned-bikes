@@ -1,4 +1,4 @@
-from .bike import Bike
+from ..models.bike import Bike
 
 class BikeRepository:
     # We initialise with a database connection

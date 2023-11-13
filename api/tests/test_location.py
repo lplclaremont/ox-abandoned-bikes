@@ -1,4 +1,4 @@
-from lib.location import Location
+from lib.models.location import Location
 
 """
 Location constructs with an id, name, latitude and longitude

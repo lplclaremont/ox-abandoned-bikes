@@ -1,6 +1,6 @@
-from lib.location_repository import LocationRepository
-from lib.location import Location
-from lib.bike import Bike
+from lib.repositories.location_repository import LocationRepository
+from lib.models.location import Location
+from lib.models.bike import Bike
 import datetime as dt
 
 """
