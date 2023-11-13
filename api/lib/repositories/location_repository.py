@@ -1,5 +1,5 @@
-from .location import Location
-from .bike import Bike
+from ..models.location import Location
+from ..models.bike import Bike
 
 class LocationRepository:
     # We initialise with a database connection
