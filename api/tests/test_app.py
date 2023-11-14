@@ -14,7 +14,6 @@ def test_get_home(web_client):
 test GET /locations returns locations in JSON form
 """
 def test_get_locations(web_client, db_connection):
-    db_connection.seed("seeds/abandoned_bikes.sql")
     response = web_client.get("/locations")
     data = json.loads(response.data)
 
@@ -45,7 +44,6 @@ def test_get_locations(web_client, db_connection):
 Test GET /locations/id returns a single location
 """
 def test_get_single_location(web_client, db_connection):
-    db_connection.seed("seeds/abandoned_bikes.sql")
     response = web_client.get("/locations/1")
     data = json.loads(response.data)
 
@@ -74,8 +72,6 @@ def test_get_single_location(web_client, db_connection):
 POST /locations adds a new location to the database
 """
 def test_post_locations(web_client, db_connection):
-    db_connection.seed("seeds/abandoned_bikes.sql")
-
     response = web_client.post("/locations", json={
         "name": "New Location",
         "latitude": 1.5,
@@ -105,8 +101,6 @@ def test_post_locations(web_client, db_connection):
 PUT /locations/id updates the location at given ID
 """
 def test_put_locations(web_client, db_connection):
-    db_connection.seed("seeds/abandoned_bikes.sql")
-
     response = web_client.put("/locations/1", json={
         "name": "New Location",
         "latitude": 1.5,
@@ -143,8 +137,6 @@ def test_put_locations(web_client, db_connection):
 DELETE /locations/id deletes the location at given ID
 """
 def test_delete_locations(web_client, db_connection):
-    db_connection.seed("seeds/abandoned_bikes.sql")
-
     response = web_client.delete("/locations/3")
 
     data = json.loads(response.data)
@@ -163,7 +155,6 @@ def test_delete_locations(web_client, db_connection):
 test GET /bikes returns bikes in JSON form
 """
 def test_get_bikes(web_client, db_connection):
-    db_connection.seed("seeds/abandoned_bikes.sql")
     response = web_client.get("/bikes")
     data = json.loads(response.data)
 
@@ -188,7 +179,6 @@ def test_get_bikes(web_client, db_connection):
 Test GET /bikes/id returns a single bikes
 """
 def test_get_single_bike(web_client, db_connection):
-    db_connection.seed("seeds/abandoned_bikes.sql")
     response = web_client.get("/bikes/2")
     data = json.loads(response.data)
 
@@ -209,8 +199,6 @@ def test_get_single_bike(web_client, db_connection):
 POST /bikes adds a new bike to the database
 """
 def test_post_new_bike(web_client, db_connection):
-    db_connection.seed("seeds/abandoned_bikes.sql")
-
     response = web_client.post("/bikes", json={
         "brand": "New bike",
         "colour": "blue",
@@ -246,8 +234,6 @@ def test_post_new_bike(web_client, db_connection):
 PUT /bikes/id updates the location at given ID
 """
 def test_put_bikes(web_client, db_connection):
-    db_connection.seed("seeds/abandoned_bikes.sql")
-
     response = web_client.put("/bikes/1", json={
         "brand": "New bike",
         "colour": "blue",
@@ -281,8 +267,6 @@ def test_put_bikes(web_client, db_connection):
 DELETE /bikes/id deletes the bike at given ID
 """
 def test_delete_bikes(web_client, db_connection):
-    db_connection.seed("seeds/abandoned_bikes.sql")
-
     response = web_client.delete("/bikes/3")
 
     data = json.loads(response.data)

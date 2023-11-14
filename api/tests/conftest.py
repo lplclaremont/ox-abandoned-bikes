@@ -11,6 +11,7 @@ from app import app
 def db_connection():
     conn = DatabaseConnection()
     conn.connect('abandoned_bikes_test')
+    conn.seed("seeds/abandoned_bikes.sql")
     return conn
 
 # We'll also create a fixture for the client we'll use to make test requests.
