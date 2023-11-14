@@ -5,6 +5,7 @@ const formData = ref({})
 
 const addBike = () => {
         console.log("Data...:", formData.value)
+        postBike(formData.value)
     }
 </script>
 
@@ -45,27 +46,14 @@ const addBike = () => {
                 type="text"
                 placeholder="Buckled wheel"
             /><br>
+            <span>Location found at (id)</span><br>
+            <input
+                v-model="formData.location_id"
+                type="text"
+                placeholder="1"
+            /><br>
 
             <button @click = "addBike()">Add a new bike!</button>
         </form>
     </div>
 </template>
-
-<!-- <script>
-export default {
-    data () {
-        return {
-        formData: {
-            brand: "",
-            colour: "",
-            condition: "", 
-        }
-    }   ;
-    },
-    methods: {
-        addBike: function () {
-            console.log("Data...:", formData.value)
-        }
-    }
-};
-</script> -->
