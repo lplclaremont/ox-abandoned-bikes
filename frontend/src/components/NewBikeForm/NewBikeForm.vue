@@ -1,17 +1,33 @@
 <script setup>
 import { postBike } from '../../requests/bikeRequests.js'
-import { ref } from 'vue';
-const formData = ref({})
+import { fetchLocations } from '../../requests/locationRequests.js'
+import { ref, onMounted } from 'vue';
+const formData = ref({});
+const locations = ref([]);
+
+const loadLocations = async () => {
+    try {
+        const data = await fetchLocations();
+        locations.value = data
+    } catch (error) {
+        console.log(error);
+    }
+}
+    
+onMounted(() => {
+    loadLocations();
+})
 
 const addBike = () => {
         console.log("Data...:", formData.value)
         postBike(formData.value)
     }
+
 </script>
 
 <template>
     <div class="location-form-container">
-        <form v-on:submit.prevent="addBike">
+        <form>
             <span>Brand name</span><br>
             <input 
                 v-model="formData.brand"
@@ -39,6 +55,7 @@ const addBike = () => {
                 v-model="formData.date_found"
                 type="text"
                 placeholder="yyyy-mm-dd"
+                required
             /><br>
             <span>Any notable features (broken parts, etc)</span><br>
             <input
@@ -46,12 +63,13 @@ const addBike = () => {
                 type="text"
                 placeholder="Buckled wheel"
             /><br>
-            <span>Location found at (id)</span><br>
-            <input
-                v-model="formData.location_id"
-                type="text"
-                placeholder="1"
-            /><br>
+            <span>Location found</span><br>
+            <select v-model="formData.location_id">
+                <option value="" disabled selected>Choose a location</option>
+                <option v-for="location in locations" :value="location.id">
+                    {{ location.name }}
+                </option>
+            </select><br>
 
             <button @click = "addBike()">Add a new bike!</button>
         </form>
