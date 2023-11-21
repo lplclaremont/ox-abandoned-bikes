@@ -29,5 +29,5 @@ And have them be equal
 def test_bikes_are_equal():
     bike1 = Bike(1, "Test brand", "Test colour", "fair", "2023-08-25", "notes", 1)
     bike2 = Bike(1, "Test brand", "Test colour", "fair", "2023-08-25", "notes", 1)
-    assert bike1==bike2
+    assert bike1 == bike2
     

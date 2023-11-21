@@ -31,4 +31,16 @@
 </template>
 
 <style scoped>
+h1 {
+    color: rgb(236, 36, 172);
+    font-size: 350%;
+    font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
+}
+
+main {
+    min-width: 200vh;
+    min-height: 100vh;
+    margin: 0;
+    padding-left: 40px;
+}
 </style>
