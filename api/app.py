@@ -153,7 +153,7 @@ def req_data_to_location(data):
 
 def req_data_to_bike(data):
     brand = data["brand"]
-    colour = data["colour"]
+    colour = data["colour"].lower()
     condition = data["condition"]
     date_found = data["date_found"]
     notes = data["notes"]

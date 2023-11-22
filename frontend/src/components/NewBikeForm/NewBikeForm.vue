@@ -2,7 +2,7 @@
 import { postBike } from '../../requests/bikeRequests.js'
 import { fetchLocations } from '../../requests/locationRequests.js'
 import { ref, onMounted } from 'vue';
-const formData = ref({});
+const formData = ref({notes: null});
 const locations = ref([]);
 
 const loadLocations = async () => {
@@ -27,6 +27,7 @@ const addBike = () => {
 
 <template>
     <div class="location-form-container">
+        <h2>Log a new bike here:</h2>
         <form>
             <span>Brand name</span><br>
             <input 
